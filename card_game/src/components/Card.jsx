@@ -11,8 +11,6 @@ export default function Card({card}){
             </li>
             ))}
         </ul>
-
-        
        </div>
     );
 }
