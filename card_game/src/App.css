@@ -33,7 +33,7 @@
 .card-list{
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 35px;
 }
 .game{
     display: flex;
@@ -45,4 +45,18 @@
 }
 .card-list-item.opponent{
     margin-right: calc(2vw - 140px);
+    direction: ltr;
+}
+
+.card-list.opponent{
+    direction: rtl;
+}
+
+.play-button{
+    width: 80;
+    height: 40;
+    align-self: center;
+    font-size: larger;
+    font-weight: bold;
+    color: rgb(241, 0, 40);
 }
