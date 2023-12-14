@@ -46,9 +46,11 @@ function shuffle(array){
 }
 
 export default function App(){
+
 const[result,setResult]=useState('');
 const[cards, setCards] = useState(dealCards);
 const[gameState, setGameState] = useState('play');
+const [selectedStats, setSelectedStats] = useState(0);
 function compareCards(){
   const playerStat = cards.player[0].stats[0];
   const opponentStat = cards.opponent[0].stats[0];
@@ -69,13 +71,26 @@ function nextRound(){
   setCards(cards =>{
     const playedCards = [{...cards.player[0]}, {...cards.opponent[0]}]
     const player = cards.player.slice(1);
-    const opponent = card.opponent.slice(1);
+    const opponent = cards.opponent.slice(1);
     if(result === "Draw"){
       return{
         player,
         opponent
       };
     }
+    if(result === "Win"){
+      return{
+        player: [...player, ...playedCards],
+        opponent
+      }
+    }
+    if(result === "Loss"){
+      return{
+        player,
+        opponent: [...opponent, ...playedCards]
+      }
+    }
+    return cards; 
   });
   
   setGameState('play');
@@ -88,9 +103,13 @@ setResult('');
     <><h1>kissa peli</h1>
      <div className= 'game'> 
       <ul className="card-list">
-        {cards.player.map(pCard =>(
+        {cards.player.map((pCard,index) =>(
           <li className='card-list-item player' key={pCard.id}>
-            <Card card={pCard}/>
+            <Card card={index === 0 ? pCard : null}
+            handleSelect={statIndex => gameState === 'play' && setSelectedStats(statIndex)}
+            selectedStat={selectedStats}
+            />
+
           </li>
           ))}
           
